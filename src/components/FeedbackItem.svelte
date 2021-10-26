@@ -1,12 +1,22 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    import { identity } from "svelte/internal";
+
     import type { Feedback } from "../type.svelte";
     import Card from "./Card.svelte";
     export let feedback: Feedback = null;
+
+    const dispatch = createEventDispatcher();
+    const onDeleteClicked = (id: number) => {
+        dispatch("delete-feedback", id);
+    };
 </script>
 
 <Card>
     <div class="rate">{feedback.rating}</div>
-    <button class="close">x</button>
+    <button class="close" on:click={() => onDeleteClicked(feedback.id)}
+        >x</button
+    >
     <div class="comment">{feedback.text}</div>
 </Card>
 
