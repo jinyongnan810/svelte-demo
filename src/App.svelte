@@ -19,7 +19,7 @@
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. consequuntur vel vitae commodi alias voluptatem est voluptatum ipsa quae.",
 		},
 	];
-	const deleteFeedback = (e) => {
+	const deleteFeedback = (e: CustomEvent<number>) => {
 		const id = e.detail;
 		feedbacks = feedbacks.filter((f) => f.id !== id);
 	};

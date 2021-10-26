@@ -6,7 +6,7 @@
     import Card from "./Card.svelte";
     export let feedback: Feedback = null;
 
-    const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher<{ "delete-feedback": number }>();
     const onDeleteClicked = (id: number) => {
         dispatch("delete-feedback", id);
     };
