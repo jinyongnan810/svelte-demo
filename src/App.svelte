@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FeebackStats from "./components/FeebackStats.svelte";
+	import FeedbackForm from "./components/FeedbackForm.svelte";
 
 	import FeedbackList from "./components/FeedbackList.svelte";
 	import type { Feedback } from "./type.svelte";
@@ -32,9 +33,30 @@
 		const id = e.detail;
 		feedbacks = feedbacks.filter((f) => f.id !== id);
 	};
+	const onFormSubmitted = (
+		e: CustomEvent<{ text: string; rating: number }>
+	) => {
+		// this not work
+		// feedbacks.push({
+		// 	id: feedbacks.length + 1,
+		// 	rating: e.detail.rating,
+		// 	text: e.detail.text,
+		// });
+		// this works
+		feedbacks = [
+			{
+				id: feedbacks.length + 1,
+				rating: e.detail.rating,
+				text: e.detail.text,
+			},
+			...feedbacks,
+		];
+		// console.log(JSON.stringify(feedbacks));
+	};
 </script>
 
 <main class="container">
+	<FeedbackForm on:form-submit={onFormSubmitted} />
 	<FeebackStats {count} {average} />
 	<FeedbackList {feedbacks} on:delete-feedback={deleteFeedback} />
 </main>
