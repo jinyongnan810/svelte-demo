@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
-    import { identity } from "svelte/internal";
+    import { FeedbackStore } from "../stores";
 
-    import type { Feedback } from "../type.svelte";
+    import type { Feedback } from "../type";
     import Card from "./Card.svelte";
     export let feedback: Feedback = null;
 
-    const dispatch = createEventDispatcher<{ "delete-feedback": number }>();
     const onDeleteClicked = (id: number) => {
-        dispatch("delete-feedback", id);
+        FeedbackStore.update((current) => {
+            return current.filter((fb) => fb.id !== id);
+        });
     };
 </script>
 

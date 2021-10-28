@@ -1,14 +1,24 @@
 <script lang="ts">
-    import type { Feedback } from "../type.svelte";
     import { fade, scale } from "svelte/transition";
+    // import { onDestroy } from "svelte";
 
     import FeedbackItem from "./FeedbackItem.svelte";
+    import { FeedbackStore } from "../stores";
 
-    export let feedbacks: Feedback[] = [];
+    //#region  first way to get data from store
+    // let feedbacks: Feedback[] = [];
+    // const unSubscribe = FeedbackStore.subscribe((data) => {
+    //     feedbacks = data;
+    // });
+    // onDestroy(() => {
+    //     unSubscribe();
+    // });
+    //#endregion
 </script>
 
-{#each feedbacks as feedback (feedback.id)}
+<!-- the second way to get data from store -->
+{#each $FeedbackStore as feedback (feedback.id)}
     <div in:scale out:fade>
-        <FeedbackItem {feedback} on:delete-feedback />
+        <FeedbackItem {feedback} />
     </div>
 {/each}

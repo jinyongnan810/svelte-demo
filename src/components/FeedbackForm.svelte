@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { FeedbackStore } from "../stores";
 
     import Button from "./Button.svelte";
     import Card from "./Card.svelte";
@@ -27,7 +28,16 @@
         console.log(rating);
     };
     const handleSubmit = () => {
-        dispatch("form-submit", { text, rating });
+        FeedbackStore.update((current) => {
+            return [
+                {
+                    id: current.length + 1,
+                    rating: rating,
+                    text: text,
+                },
+                ...current,
+            ];
+        });
         text = "";
     };
 </script>
